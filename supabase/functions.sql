@@ -1,0 +1,1 @@
+-- Views e funções RPC serão definidas nas tarefas da Fase 1.

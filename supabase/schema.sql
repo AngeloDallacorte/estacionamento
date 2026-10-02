@@ -1,0 +1,1 @@
+-- Schema do banco será definido na T1.1.

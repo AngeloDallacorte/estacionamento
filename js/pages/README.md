@@ -1,0 +1,1 @@
+Um módulo de entrada por página será organizado nesta pasta.

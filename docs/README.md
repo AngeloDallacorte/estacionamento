@@ -1,0 +1,1 @@
+Documentação, diagramas e roteiros do projeto serão organizados nesta pasta.

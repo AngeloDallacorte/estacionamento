@@ -1,0 +1,1 @@
+-- Políticas RLS serão definidas na T1.5.

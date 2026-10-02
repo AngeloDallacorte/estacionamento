@@ -19,7 +19,7 @@ O atendente faz login, digita a **placa** e o **número da vaga**, registra a **
 
 ## Fase 0 — Preparação
 
-- [ ] **T0.1 — Criar repositório e estrutura de pastas** *(Must)*
+- [x] **T0.1 — Criar repositório e estrutura de pastas** *(Must)*
   - Criar a estrutura descrita no `AGENTS.md` (seção 3) com arquivos vazios/esqueleto.
   - Criar `README.md` com nome do projeto, equipe e como rodar.
   - **Aceite:** `npx serve .` abre `index.html` sem erros no console.
