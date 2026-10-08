@@ -1,1 +1,22 @@
--- Dados de exemplo serão definidos na T1.6.
+insert into public.vagas (numero, setor, tipo) values
+	('A01', 'A', 'comum'),
+	('A02', 'A', 'comum'),
+	('A03', 'A', 'comum'),
+	('A04', 'A', 'comum'),
+	('A05', 'A', 'comum'),
+	('A06', 'A', 'comum'),
+	('A07', 'A', 'comum'),
+	('A08', 'A', 'comum'),
+	('A09', 'A', 'comum'),
+	('A10', 'A', 'comum'),
+	('A11', 'A', 'comum'),
+	('A12', 'A', 'comum'),
+	('B01', 'B', 'comum'),
+	('B02', 'B', 'comum'),
+	('B03', 'B', 'comum'),
+	('B04', 'B', 'comum'),
+	('P01', 'P', 'pcd'),
+	('P02', 'P', 'pcd'),
+	('I01', 'I', 'idoso'),
+	('G01', 'G', 'gestante')
+on conflict (numero) do nothing;

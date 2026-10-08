@@ -24,14 +24,16 @@ O atendente faz login, digita a **placa** e o **número da vaga**, registra a **
   - Criar `README.md` com nome do projeto, equipe e como rodar.
   - **Aceite:** `npx serve .` abre `index.html` sem erros no console.
 
-- [x] **T0.2 — Criar projeto no Supabase** *(Must)*
+- [ ] **T0.2 — Criar projeto no Supabase** *(Must)*
   - Criar o projeto, anotar URL e `anon key`.
   - Desativar cadastro público (Auth → Providers → Email → desligar "Allow new users to sign up").
   - **Aceite:** `js/config.js` preenchido; `service_role` **não** aparece em nenhum arquivo.
+  - **Estado:** projeto informado como criado; configuração local está vazia e o cadastro público não foi verificado.
 
 - [ ] **T0.3 — Cliente Supabase no front** *(Must)* · Dep.: T0.1, T0.2
   - Criar `js/supabaseClient.js` importando o `supabase-js` v2 via CDN como ES Module.
   - **Aceite:** um `console.log` temporário confirma que o cliente é criado (remover depois).
+  - **Estado:** módulo implementado; teste de inicialização depende da configuração da T0.2.
 
 ---
 
@@ -40,10 +42,12 @@ O atendente faz login, digita a **placa** e o **número da vaga**, registra a **
 - [ ] **T1.1 — Schema** *(Must)* · Dep.: T0.2
   - Criar `supabase/schema.sql` exatamente como na seção 4 do `AGENTS.md` (tabelas, checks, índices únicos parciais).
   - **Aceite:** script roda sem erro do zero; tentar inserir duas movimentações abertas para a mesma vaga **ou** mesmo veículo falha.
+  - **Estado:** script implementado; execução e teste de integridade no Supabase pendentes.
 
 - [ ] **T1.2 — View `vagas_status`** *(Must)* · Dep.: T1.1
   - View com: `vaga_id`, `numero`, `setor`, `tipo`, `ativa`, `ocupada` (boolean), `placa_atual`, `entrada_em`.
   - **Aceite:** `select * from vagas_status` mostra corretamente vagas livres e ocupadas.
+  - **Estado:** view implementada; consulta de validação no Supabase pendente.
 
 - [ ] **T1.3 — RPC `registrar_entrada`** *(Must)* · Dep.: T1.1
   - Conforme `AGENTS.md` seção 4: normaliza placa, cria/reaproveita veículo, valida vaga e duplicidade.
@@ -54,18 +58,22 @@ O atendente faz login, digita a **placa** e o **número da vaga**, registra a **
     - Placa já no pátio → erro informando a vaga atual.
     - Placa inválida → erro claro.
     - `abc-1d23` é gravada como `ABC1D23`.
+  - **Estado:** RPC implementada; cenários de aceite no Supabase pendentes.
 
 - [ ] **T1.4 — RPC `registrar_saida`** *(Must)* · Dep.: T1.3
   - **Aceite:** fecha a movimentação aberta; placa sem entrada aberta → erro claro; vaga volta a aparecer como livre.
+  - **Estado:** RPC implementada; cenários de aceite no Supabase pendentes.
 
 - [ ] **T1.5 — Políticas RLS** *(Must)* · Dep.: T1.1
   - Criar funções auxiliares `is_ativo()` e `is_admin()`.
   - `select` para autenticados ativos; escrita em `movimentacoes`/`veiculos` só via RPC; escrita em `vagas`/`perfis` só admin.
   - **Aceite:** com a `anon key` **sem login**, nenhuma tabela retorna dados; atendente não consegue `insert` direto em `movimentacoes`.
+  - **Estado:** políticas e privilégios implementados; testes com anon e atendente pendentes.
 
 - [ ] **T1.6 — Seed de vagas** *(Must)* · Dep.: T1.1
   - Criar `supabase/seed.sql` com ~20 vagas de exemplo (incluindo algumas PCD/idoso/gestante).
   - **Aceite:** `select count(*) from vagas` retorna o esperado.
+  - **Estado:** seed idempotente com 20 vagas implementado; contagem no Supabase pendente.
 
 ---
 
