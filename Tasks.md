@@ -24,16 +24,14 @@ O atendente faz login, digita a **placa** e o **número da vaga**, registra a **
   - Criar `README.md` com nome do projeto, equipe e como rodar.
   - **Aceite:** `npx serve .` abre `index.html` sem erros no console.
 
-- [ ] **T0.2 — Criar projeto no Supabase** *(Must)*
+- [x] **T0.2 — Criar projeto no Supabase** *(Must)*
   - Criar o projeto, anotar URL e `anon key`.
   - Desativar cadastro público (Auth → Providers → Email → desligar "Allow new users to sign up").
   - **Aceite:** `js/config.js` preenchido; `service_role` **não** aparece em nenhum arquivo.
-  - **Estado:** projeto informado como criado; configuração local está vazia e o cadastro público não foi verificado.
 
-- [ ] **T0.3 — Cliente Supabase no front** *(Must)* · Dep.: T0.1, T0.2
+- [x] **T0.3 — Cliente Supabase no front** *(Must)* · Dep.: T0.1, T0.2
   - Criar `js/supabaseClient.js` importando o `supabase-js` v2 via CDN como ES Module.
   - **Aceite:** um `console.log` temporário confirma que o cliente é criado (remover depois).
-  - **Estado:** módulo implementado; teste de inicialização depende da configuração da T0.2.
 
 ---
 

@@ -20,4 +20,4 @@ O script usa `npx serve .` para servir os arquivos estáticos. Abra no navegador
 
 ## Configuração do Supabase
 
-O projeto usa Supabase. Configure a URL do projeto e a chave pública `anon` em `js/config.js` antes de conectar o front ao Supabase. Nunca coloque a chave `service_role` no repositório.
+O projeto usa Supabase. Configure a URL do projeto e uma chave pública `anon` ou `publishable` em `js/config.js`. Nunca coloque a chave `service_role` no repositório.
