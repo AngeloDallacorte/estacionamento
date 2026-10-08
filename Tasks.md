@@ -24,7 +24,7 @@ O atendente faz login, digita a **placa** e o **número da vaga**, registra a **
   - Criar `README.md` com nome do projeto, equipe e como rodar.
   - **Aceite:** `npx serve .` abre `index.html` sem erros no console.
 
-- [ ] **T0.2 — Criar projeto no Supabase** *(Must)*
+- [x] **T0.2 — Criar projeto no Supabase** *(Must)*
   - Criar o projeto, anotar URL e `anon key`.
   - Desativar cadastro público (Auth → Providers → Email → desligar "Allow new users to sign up").
   - **Aceite:** `js/config.js` preenchido; `service_role` **não** aparece em nenhum arquivo.

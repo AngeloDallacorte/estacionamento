@@ -13,10 +13,10 @@ Sistema web para controle de entradas e saídas do estacionamento da ULBRA Torre
 É necessário ter Node.js e npm instalados. Na raiz do projeto, execute:
 
 ```bash
-npx serve .
+npm run dev
 ```
 
-Abra no navegador o endereço informado pelo comando. Não abra `index.html` diretamente como arquivo, pois os módulos JavaScript do projeto serão carregados por HTTP.
+O script usa `npx serve .` para servir os arquivos estáticos. Abra no navegador o endereço informado pelo comando. Não abra `index.html` diretamente como arquivo, pois os módulos JavaScript do projeto serão carregados por HTTP.
 
 ## Configuração do Supabase
 
