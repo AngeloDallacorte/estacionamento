@@ -77,15 +77,15 @@ O atendente faz login, digita a **placa** e o **número da vaga**, registra a **
 
 ## Fase 2 — Autenticação
 
-- [ ] **T2.1 — Criar usuários de teste** *(Must)* · Dep.: T1.5
+- [x] **T2.1 — Criar usuários de teste** *(Must)* · Dep.: T1.5
   - Criar 1 admin e 1 atendente no Supabase Auth e inserir os respectivos `perfis`.
   - **Aceite:** ambos existem em `auth.users` e `perfis` com o papel correto.
-  - **Estado:** perfil admin ativo criado para `angelodceuzebio@gmail.com`; falta criar o usuário atendente e validar ambos no login.
+  - **Estado:** usuários admin e atendente existem em `auth.users` e `perfis` com os papéis corretos; convite do atendente enviado e aguardando confirmação.
 
-- [ ] **T2.2 — Tela de login** *(Must)* · Dep.: T0.3, T2.1
+- [x] **T2.2 — Tela de login** *(Must)* · Dep.: T0.3, T2.1
   - `index.html` com e-mail e senha, mensagem de erro amigável, botão com estado de carregamento.
   - **Aceite:** login válido redireciona para `pages/painel.html`; inválido mostra erro sem recarregar.
-  - **Estado:** tela e fluxo implementados; caminho inválido testado; login válido aguarda as contas da T2.1.
+  - **Estado:** caminho inválido testado; usuário admin confirmou login válido e redirecionamento ao painel.
 
 - [ ] **T2.3 — Guarda de rota e logout** *(Must)* · Dep.: T2.2
   - `js/auth.js`: se não houver sessão, redireciona para o login; se perfil inativo, desloga; botão "Sair".
