@@ -3,13 +3,54 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Controle de entradas e saídas do estacionamento da ULBRA Torres.">
-    <title>Estacionamento ULBRA Torres</title>
+    <meta name="description" content="Acesso ao controle do estacionamento da ULBRA Torres.">
+    <title>Entrar | Estacionamento ULBRA Torres</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script type="module" src="js/pages/login.js"></script>
   </head>
-  <body>
-    <main>
-      <h1>Estacionamento ULBRA Torres</h1>
+  <body class="login-page">
+    <main class="login-layout">
+      <section class="login-intro" aria-labelledby="titulo-projeto">
+        <p class="login-eyebrow">ULBRA TORRES <span>·</span> OPERAÇÃO</p>
+        <div>
+          <h1 id="titulo-projeto">Estacionamento</h1>
+          <p class="login-description">Controle de entradas, saídas e ocupação do pátio.</p>
+        </div>
+        <p class="login-access-label"><span aria-hidden="true"></span>Acesso para equipe autorizada</p>
+      </section>
+
+      <section class="login-panel" aria-labelledby="titulo-login">
+        <div class="login-heading">
+          <p class="login-eyebrow login-eyebrow-dark">ACESSO</p>
+          <h2 id="titulo-login">Entrar no sistema</h2>
+          <p>Use seu e-mail e senha cadastrados.</p>
+        </div>
+
+        <form id="formulario-login" novalidate>
+          <label for="email">E-mail</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="username"
+            inputmode="email"
+            required
+            autofocus
+          >
+
+          <label for="senha">Senha</label>
+          <input
+            id="senha"
+            name="senha"
+            type="password"
+            autocomplete="current-password"
+            required
+          >
+
+          <p id="mensagem-login" class="form-message" role="alert" aria-live="polite"></p>
+          <button id="botao-login" type="submit">Entrar</button>
+        </form>
+      </section>
     </main>
   </body>
 </html>

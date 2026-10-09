@@ -40,12 +40,12 @@ O atendente faz login, digita a **placa** e o **número da vaga**, registra a **
 - [ ] **T1.1 — Schema** *(Must)* · Dep.: T0.2
   - Criar `supabase/schema.sql` exatamente como na seção 4 do `AGENTS.md` (tabelas, checks, índices únicos parciais).
   - **Aceite:** script roda sem erro do zero; tentar inserir duas movimentações abertas para a mesma vaga **ou** mesmo veículo falha.
-  - **Estado:** script implementado; execução e teste de integridade no Supabase pendentes.
+  - **Estado:** aplicado no Supabase; teste de integridade da constraint no projeto pendente. Execução local em PostgreSQL/PGlite passou.
 
 - [ ] **T1.2 — View `vagas_status`** *(Must)* · Dep.: T1.1
   - View com: `vaga_id`, `numero`, `setor`, `tipo`, `ativa`, `ocupada` (boolean), `placa_atual`, `entrada_em`.
   - **Aceite:** `select * from vagas_status` mostra corretamente vagas livres e ocupadas.
-  - **Estado:** view implementada; consulta de validação no Supabase pendente.
+  - **Estado:** view consultada localmente; `functions.sql` ainda não foi aplicado no Supabase.
 
 - [ ] **T1.3 — RPC `registrar_entrada`** *(Must)* · Dep.: T1.1
   - Conforme `AGENTS.md` seção 4: normaliza placa, cria/reaproveita veículo, valida vaga e duplicidade.
@@ -56,22 +56,22 @@ O atendente faz login, digita a **placa** e o **número da vaga**, registra a **
     - Placa já no pátio → erro informando a vaga atual.
     - Placa inválida → erro claro.
     - `abc-1d23` é gravada como `ABC1D23`.
-  - **Estado:** RPC implementada; cenários de aceite no Supabase pendentes.
+  - **Estado:** validação local da normalização, placa inválida, vaga ocupada e placa duplicada passou; `functions.sql` e demais cenários no Supabase pendentes.
 
 - [ ] **T1.4 — RPC `registrar_saida`** *(Must)* · Dep.: T1.3
   - **Aceite:** fecha a movimentação aberta; placa sem entrada aberta → erro claro; vaga volta a aparecer como livre.
-  - **Estado:** RPC implementada; cenários de aceite no Supabase pendentes.
+  - **Estado:** validação local da saída e liberação da vaga passou; `functions.sql`, cenário sem entrada e teste no Supabase pendentes.
 
 - [ ] **T1.5 — Políticas RLS** *(Must)* · Dep.: T1.1
   - Criar funções auxiliares `is_ativo()` e `is_admin()`.
   - `select` para autenticados ativos; escrita em `movimentacoes`/`veiculos` só via RPC; escrita em `vagas`/`perfis` só admin.
   - **Aceite:** com a `anon key` **sem login**, nenhuma tabela retorna dados; atendente não consegue `insert` direto em `movimentacoes`.
-  - **Estado:** políticas e privilégios implementados; testes com anon e atendente pendentes.
+  - **Estado:** RLS local validada nas quatro tabelas; leitura anon e INSERT direto foram bloqueados; `policies.sql` e teste no Supabase pendentes.
 
 - [ ] **T1.6 — Seed de vagas** *(Must)* · Dep.: T1.1
   - Criar `supabase/seed.sql` com ~20 vagas de exemplo (incluindo algumas PCD/idoso/gestante).
   - **Aceite:** `select count(*) from vagas` retorna o esperado.
-  - **Estado:** seed idempotente com 20 vagas implementado; contagem no Supabase pendente.
+  - **Estado:** seed local inseriu 20 vagas e passou ao ser repetido; `seed.sql` e contagem no Supabase pendentes.
 
 ---
 
@@ -80,15 +80,18 @@ O atendente faz login, digita a **placa** e o **número da vaga**, registra a **
 - [ ] **T2.1 — Criar usuários de teste** *(Must)* · Dep.: T1.5
   - Criar 1 admin e 1 atendente no Supabase Auth e inserir os respectivos `perfis`.
   - **Aceite:** ambos existem em `auth.users` e `perfis` com o papel correto.
+  - **Estado:** usuário admin e perfil criados; convite aguarda verificação do e-mail. Falta criar o atendente.
 
 - [ ] **T2.2 — Tela de login** *(Must)* · Dep.: T0.3, T2.1
   - `index.html` com e-mail e senha, mensagem de erro amigável, botão com estado de carregamento.
   - **Aceite:** login válido redireciona para `pages/painel.html`; inválido mostra erro sem recarregar.
+  - **Estado:** tela e fluxo implementados; caminho inválido testado; login válido aguarda as contas da T2.1.
 
 - [ ] **T2.3 — Guarda de rota e logout** *(Must)* · Dep.: T2.2
   - `js/auth.js`: se não houver sessão, redireciona para o login; se perfil inativo, desloga; botão "Sair".
   - Expor o papel (`atendente`/`admin`) para esconder itens de menu.
   - **Aceite:** abrir `painel.html` deslogado leva ao login; perfil inativo não entra; "Sair" encerra a sessão.
+  - **Estado:** guarda sem sessão testada e controle por papel implementado; perfil inativo e logout aguardam contas da T2.1.
 
 ---
 

@@ -5,10 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Painel | Estacionamento ULBRA Torres</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <script type="module" src="../js/pages/painel.js"></script>
   </head>
-  <body>
-    <main>
+  <body class="panel-page">
+    <header class="panel-header">
+      <a class="panel-brand" href="painel.html">Estacionamento ULBRA Torres</a>
+      <div class="panel-user">
+        <span id="identificacao-perfil"></span>
+        <button id="botao-sair" class="logout-button" type="button">Sair</button>
+      </div>
+    </header>
+
+    <main id="conteudo-painel" class="panel-content" hidden>
+      <nav class="panel-nav" aria-label="Navegação principal">
+        <a href="historico.html">Histórico</a>
+        <a href="admin.html" data-admin-only hidden>Administração</a>
+      </nav>
       <h1>Painel</h1>
+      <p id="mensagem-painel" class="panel-message" role="alert" aria-live="polite"></p>
     </main>
   </body>
 </html>
