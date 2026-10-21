@@ -1,14 +1,78 @@
+
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Histórico | Estacionamento ULBRA Torres</title>
-    <link rel="stylesheet" href="../css/styles.css">
-  </head>
-  <body>
-    <main>
-      <h1>Histórico</h1>
-    </main>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Histórico | Estacionamento ULBRA Torres</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <script type="module" src="../js/pages/historico.js"></script>
+</head>
+<body>
+  <header>
+    <div class="marca-sistema">
+  <img src="../logoulbra.png" alt="Logo ULBRA" class="logo-ulbra">
+    <div class="marca-texto">
+      <h1>Estacionamento ULBRA Torres</h1>
+      <p>Sistema de Controle de Estacionamento</p>
+    </div>
+  </div>
+    <p id="identificacao-perfil"></p>
+    <button id="botao-sair" type="button">Sair</button>
+  </header>
+
+  <main id="conteudo-historico" hidden>
+    <nav aria-label="Navegação principal">
+      <a href="painel.html">Painel</a>
+      <a href="historico.html">Histórico</a>
+      <a href="admin.html" data-admin-only hidden>Administração</a>
+    </nav>
+
+    <h3>Histórico de movimentações</h3>
+
+    <p id="mensagem-historico" role="status" aria-live="polite">
+      Carregando histórico...
+    </p>
+
+    <div>
+      <label for="filtro-placa">Pesquisar por placa</label>
+      <input
+        id="filtro-placa"
+        type="search"
+        placeholder="Digite a placa"
+      >
+
+      <button id="botao-atualizar" type="button">
+        Atualizar histórico
+      </button>
+    </div>
+
+    <p>
+      Total de movimentações:
+      <strong id="total-movimentacoes">0</strong>
+    </p>
+
+    <div style="overflow-x:auto">
+      <table width="100%">
+        <thead>
+          <tr>
+            <th>Placa</th>
+            <th>Vaga</th>
+            <th>Setor</th>
+            <th>Entrada</th>
+            <th>Saída</th>
+            <th>Duração</th>
+            <th>Situação</th>
+          </tr>
+        </thead>
+
+        <tbody id="tabela-historico">
+          <tr>
+            <td colspan="7">Carregando...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
 </html>

@@ -57,3 +57,13 @@ export async function sair() {
 
 	window.location.replace('../index.html');
 }
+
+export async function solicitarRecuperacaoSenha(email) {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: 'http://localhost:3000/redefinir-senha.html',
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+}
