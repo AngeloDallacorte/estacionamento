@@ -43,7 +43,9 @@ export async function listarNoPatio() {
     .order('entrada_em', { ascending: false });
 
   if (error) {
-    throw new Error(error.message || 'Erro ao consultar veículos no pátio.');
+    throw new Error(
+      error.message || 'Erro ao consultar veículos no pátio.'
+    );
   }
 
   return data ?? [];
@@ -56,7 +58,9 @@ export async function listarVagas() {
     .order('numero', { ascending: true });
 
   if (error) {
-    throw new Error(error.message || 'Erro ao consultar vagas.');
+    throw new Error(
+      error.message || 'Erro ao consultar vagas.'
+    );
   }
 
   return data ?? [];
@@ -76,66 +80,9 @@ export async function listarHistorico() {
     .order('entrada_em', { ascending: false });
 
   if (error) {
-    throw new Error(error.message || 'Erro ao consultar o histórico.');
-  }
-
-  return data ?? [];
-}
-
-
-  return validarResultado(data, error);
-}
-
-export async function registrarSaida(placa) {
-  const { data, error } = await supabase.rpc('registrar_saida', {
-    p_placa: placa,
-  });
-
-  return validarResultado(data, error);
-}
-
-export async function listarNoPatio() {
-  const { data, error } = await supabase
-    .from('vagas_status')
-    .select('*')
-    .eq('ocupada', true)
-    .order('entrada_em', { ascending: false });
-
-  if (error) {
-    throw new Error(error.message || 'Erro ao consultar veículos no pátio.');
-  }
-
-  return data ?? [];
-}
-
-export async function listarVagas() {
-  const { data, error } = await supabase
-    .from('vagas_status')
-    .select('*')
-    .order('numero', { ascending: true });
-
-  if (error) {
-    throw new Error(error.message || 'Erro ao consultar vagas.');
-  }
-
-  return data ?? [];
-}
-
-export async function listarHistorico() {
-  const { data, error } = await supabase
-    .from('movimentacoes')
-    .select(`
-      id,
-      entrada_em,
-      saida_em,
-      observacao,
-      vagas ( numero, setor ),
-      veiculos ( placa, modelo, cor, categoria )
-    `)
-    .order('entrada_em', { ascending: false });
-
-  if (error) {
-    throw new Error(error.message || 'Erro ao consultar o histórico.');
+    throw new Error(
+      error.message || 'Erro ao consultar o histórico.'
+    );
   }
 
   return data ?? [];
