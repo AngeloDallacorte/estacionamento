@@ -1,0 +1,7 @@
+{
+  "name": "estacionamento-ulbra-torres",
+  "private": true,
+  "scripts": {
+    "dev": "npx --yes serve ."
+  }
+}
