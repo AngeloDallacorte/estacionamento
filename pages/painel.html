@@ -1,28 +1,158 @@
+
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Painel | Estacionamento ULBRA Torres</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <script type="module" src="../js/pages/painel.js"></script>
-  </head>
-  <body class="panel-page">
-    <header class="panel-header">
-      <a class="panel-brand" href="painel.html">Estacionamento ULBRA Torres</a>
-      <div class="panel-user">
-        <span id="identificacao-perfil"></span>
-        <button id="botao-sair" class="logout-button" type="button">Sair</button>
-      </div>
-    </header>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel | Estacionamento ULBRA Torres</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <script type="module" src="../js/pages/painel.js"></script>
+</head>
 
-    <main id="conteudo-painel" class="panel-content" hidden>
-      <nav class="panel-nav" aria-label="Navegação principal">
-        <a href="historico.html">Histórico</a>
-        <a href="admin.html" data-admin-only hidden>Administração</a>
-      </nav>
-      <h1>Painel</h1>
-      <p id="mensagem-painel" class="panel-message" role="alert" aria-live="polite"></p>
-    </main>
-  </body>
+<body class="panel-page">
+  <header class="panel-header">
+    <a class="panel-brand" href="painel.html">
+      Estacionamento ULBRA Torres
+    </a>
+
+    <div class="panel-user">
+      <span id="identificacao-perfil"></span>
+      <button id="botao-sair" class="logout-button" type="button">
+        Sair
+      </button>
+    </div>
+  </header>
+
+  <main id="conteudo-painel" class="panel-content" hidden>
+
+    <nav class="panel-nav" aria-label="Navegação principal">
+      <a href="painel.html">Painel</a>
+      <a href="historico.html">Histórico</a>
+      <a href="admin.html" data-admin-only hidden>Administração</a>
+    </nav>
+
+    <h1>Controle de Estacionamento</h1>
+
+    <p id="mensagem-painel" class="panel-message"
+       role="alert" aria-live="polite"></p>
+
+    <section aria-label="Resumo da ocupação">
+      <h2>Ocupação do estacionamento</h2>
+
+      <div class="dashboard-cards">
+        <article class="dashboard-card">
+          <h3>Total de vagas</h3>
+          <strong id="total-vagas">0</strong>
+        </article>
+
+        <article class="dashboard-card">
+          <h3>Vagas livres</h3>
+          <strong id="vagas-livres">0</strong>
+        </article>
+
+        <article class="dashboard-card">
+          <h3>Vagas ocupadas</h3>
+          <strong id="vagas-ocupadas">0</strong>
+        </article>
+
+        <article class="dashboard-card">
+          <h3>Taxa de ocupação</h3>
+          <strong id="taxa-ocupacao">0%</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="operations-section">
+      <h2>Registrar entrada</h2>
+
+      <form id="form-entrada">
+        <div>
+          <label for="entrada-placa">Placa do veículo</label>
+          <input id="entrada-placa" name="placa"
+                 placeholder="ABC1D23" maxlength="8" required>
+        </div>
+
+        <div>
+          <label for="entrada-vaga">Número da vaga</label>
+          <select id="entrada-vaga" name="vaga" required>
+            <option value="">Selecione uma vaga livre</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="entrada-categoria">Categoria</label>
+          <select id="entrada-categoria" name="categoria">
+            <option value="">Não informada</option>
+            <option value="aluno">Aluno</option>
+            <option value="professor">Professor</option>
+            <option value="funcionario">Funcionário</option>
+            <option value="visitante">Visitante</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="entrada-modelo">Modelo</label>
+          <input id="entrada-modelo" name="modelo"
+                 placeholder="Ex.: Gol">
+        </div>
+
+        <div>
+          <label for="entrada-cor">Cor</label>
+          <input id="entrada-cor" name="cor"
+                 placeholder="Ex.: Branco">
+        </div>
+
+        <button type="submit" id="botao-entrada">
+          Registrar entrada
+        </button>
+      </form>
+    </section>
+
+    <section class="operations-section">
+      <h2>Registrar saída</h2>
+
+      <form id="form-saida">
+        <div>
+          <label for="saida-placa">Placa do veículo</label>
+          <input id="saida-placa" name="placa"
+                 placeholder="ABC1D23" maxlength="8" required>
+        </div>
+
+        <button type="submit" id="botao-saida">
+          Registrar saída
+        </button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Veículos no pátio</h2>
+
+      <button type="button" id="botao-atualizar">
+        Atualizar informações
+      </button>
+
+      <div style="overflow-x:auto">
+        <table class="patio-table" width="100%">
+          <thead>
+            <tr>
+              <th>Placa</th>
+              <th>Vaga</th>
+              <th>Setor</th>
+              <th>Entrada</th>
+              <th>Tempo no pátio</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+
+          <tbody id="tabela-patio">
+            <tr>
+              <td colspan="6">Carregando informações...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</body>
 </html>
