@@ -1,0 +1,49 @@
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redefinir senha | Estacionamento ULBRA Torres</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <main>
+    <h1>Redefinir senha</h1>
+
+    <p>Informe a nova senha para acessar o estacionamento.</p>
+
+    <form id="formulario-redefinicao">
+      <label for="nova-senha">Nova senha</label>
+      <input
+        id="nova-senha"
+        type="password"
+        minlength="6"
+        autocomplete="new-password"
+        required
+      >
+
+      <label for="confirmar-senha">Confirmar nova senha</label>
+      <input
+        id="confirmar-senha"
+        type="password"
+        minlength="6"
+        autocomplete="new-password"
+        required
+      >
+
+      <button id="botao-redefinir" type="submit" disabled>
+        Salvar nova senha
+      </button>
+    </form>
+
+    <p id="mensagem-redefinicao" role="status" aria-live="polite">
+      Verificando link de recuperação...
+    </p>
+
+    <p><a href="./index.html">Voltar ao login</a></p>
+  </main>
+
+  <script type="module" src="./js/pages/redefinir-senha.js"></script>
+</body>
+</html>
