@@ -1,14 +1,20 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8">
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1">
 
-  <title>Administração | Estacionamento ULBRA Torres</title>
+  <title>
+    Administração | Estacionamento ULBRA Torres
+  </title>
 
-  <link rel="stylesheet" href="../css/styles.css">
+  <link
+    rel="stylesheet"
+    href="../css/styles.css">
 
   <script
     type="module"
@@ -18,7 +24,7 @@
 
 <body class="panel-page">
 
-  <!-- Cabeçalho do sistema -->
+  <!-- CABEÇALHO -->
   <header class="panel-header">
 
     <div class="marca-sistema">
@@ -50,13 +56,13 @@
 
   </header>
 
-  <!-- Conteúdo protegido: somente administradores -->
+  <!-- CONTEÚDO ADMINISTRATIVO -->
   <main
     id="conteudo-admin"
     class="panel-content"
     hidden>
 
-    <!-- Navegação -->
+    <!-- NAVEGAÇÃO -->
     <nav
       class="panel-nav"
       aria-label="Navegação principal">
@@ -110,6 +116,7 @@
       <div class="table-container">
 
         <table>
+
           <thead>
             <tr>
               <th scope="col">Vaga</th>
@@ -141,6 +148,8 @@
       <p>
         Consulte os usuários cadastrados,
         seus níveis de acesso e suas situações.
+        Administradores podem ativar ou desativar
+        contas de outros usuários.
       </p>
 
       <p
@@ -159,17 +168,19 @@
       <div class="table-container">
 
         <table>
+
           <thead>
             <tr>
               <th scope="col">Nome</th>
               <th scope="col">Perfil</th>
               <th scope="col">Situação</th>
+              <th scope="col">Ações</th>
             </tr>
           </thead>
 
           <tbody id="tabela-usuarios">
             <tr>
-              <td colspan="3">
+              <td colspan="4">
                 Carregando...
               </td>
             </tr>
