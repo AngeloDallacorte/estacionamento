@@ -41,17 +41,10 @@ to authenticated;
 grant execute on function public.is_admin()
 to authenticated;
 
-alter table public.perfis
-enable row level security;
-
-alter table public.vagas
-enable row level security;
-
-alter table public.veiculos
-enable row level security;
-
-alter table public.movimentacoes
-enable row level security;
+alter table public.perfis enable row level security;
+alter table public.vagas enable row level security;
+alter table public.veiculos enable row level security;
+alter table public.movimentacoes enable row level security;
 
 drop policy if exists perfis_select_ativos
 on public.perfis;
@@ -109,25 +102,69 @@ returns trigger
 language plpgsql
 set search_path = public, pg_temp
 as $$
+declare
+    administradores_ativos integer;
 begin
-    if old.id = auth.uid()
-       and new.ativo is distinct from old.ativo then
+    if tg_op = 'UPDATE' then
 
-        raise exception
-            'Voce nao pode alterar a situacao da sua propria conta.';
+        if old.id = auth.uid() then
 
+            if new.ativo is distinct from old.ativo then
+                raise exception
+                    'Voce nao pode alterar a situacao da sua propria conta.';
+            end if;
+
+            if new.papel is distinct from old.papel then
+                raise exception
+                    'Voce nao pode alterar o perfil da sua propria conta.';
+            end if;
+
+        end if;
+
+    end if;
+
+    if old.ativo = true
+       and old.papel = 'admin' then
+
+        if tg_op = 'DELETE'
+           or (
+               tg_op = 'UPDATE'
+               and (
+                   new.ativo is distinct from true
+                   or new.papel is distinct from 'admin'
+               )
+           ) then
+
+            perform pg_advisory_xact_lock(729104, 1);
+
+            select count(*)
+            into administradores_ativos
+            from public.perfis
+            where papel = 'admin'
+              and ativo = true;
+
+            if administradores_ativos <= 1 then
+                raise exception
+                    'O sistema precisa manter pelo menos um administrador ativo.';
+            end if;
+
+        end if;
+
+    end if;
+
+    if tg_op = 'DELETE' then
+        return old;
     end if;
 
     return new;
 end;
 $$;
 
-drop trigger if exists
-    trigger_proteger_auto_desativacao
+drop trigger if exists trigger_proteger_auto_desativacao
 on public.perfis;
 
 create trigger trigger_proteger_auto_desativacao
-before update
+before update or delete
 on public.perfis
 for each row
 execute function public.proteger_auto_desativacao();
