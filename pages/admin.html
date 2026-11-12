@@ -1,34 +1,17 @@
 <!doctype html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="utf-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1">
-
-  <title>
-    Administração | Estacionamento ULBRA Torres
-  </title>
-
-  <link
-    rel="stylesheet"
-    href="../css/styles.css">
-
-  <script
-    type="module"
-    src="../js/pages/admin.js">
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administração | Estacionamento ULBRA Torres</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <script type="module" src="../js/pages/admin.js"></script>
 </head>
 
 <body class="panel-page">
 
-  <!-- CABEÇALHO -->
   <header class="panel-header">
-
     <div class="marca-sistema">
-
       <img
         src="../logoulbra.png"
         alt="Logo ULBRA"
@@ -38,49 +21,33 @@
         <h1>Estacionamento ULBRA Torres</h1>
         <p>Sistema de Controle de Estacionamento</p>
       </div>
-
     </div>
 
     <div class="panel-user">
-
       <p id="identificacao-perfil"></p>
-
       <button
         id="botao-sair"
         class="logout-button"
         type="button">
         Sair
       </button>
-
     </div>
-
   </header>
 
-  <!-- CONTEÚDO ADMINISTRATIVO -->
   <main
     id="conteudo-admin"
     class="panel-content"
     hidden>
 
-    <!-- NAVEGAÇÃO -->
     <nav
       class="panel-nav"
       aria-label="Navegação principal">
 
-      <a href="painel.html">
-        Painel
-      </a>
-
-      <a href="historico.html">
-        Histórico
-      </a>
-
-      <a
-        href="admin.html"
-        aria-current="page">
+      <a href="painel.html">Painel</a>
+      <a href="historico.html">Histórico</a>
+      <a href="admin.html" aria-current="page">
         Administração
       </a>
-
     </nav>
 
     <h3>Administração do estacionamento</h3>
@@ -90,9 +57,7 @@
       Acesso exclusivo para administradores.
     </p>
 
-    <!-- GERENCIAMENTO DE VAGAS -->
     <section class="operations-section">
-
       <h3>Gerenciamento de vagas</h3>
 
       <p>
@@ -114,9 +79,7 @@
       </button>
 
       <div class="table-container">
-
         <table>
-
           <thead>
             <tr>
               <th scope="col">Vaga</th>
@@ -128,28 +91,21 @@
 
           <tbody id="tabela-vagas">
             <tr>
-              <td colspan="4">
-                Carregando...
-              </td>
+              <td colspan="4">Carregando...</td>
             </tr>
           </tbody>
-
         </table>
-
       </div>
-
     </section>
 
-    <!-- GERENCIAMENTO DE USUÁRIOS -->
     <section class="operations-section">
-
       <h3>Gerenciamento de usuários</h3>
 
       <p>
         Consulte os usuários cadastrados,
         seus níveis de acesso e suas situações.
-        Administradores podem ativar ou desativar
-        contas de outros usuários.
+        Administradores podem ativar, desativar,
+        promover ou rebaixar outros usuários.
       </p>
 
       <p
@@ -166,9 +122,7 @@
       </button>
 
       <div class="table-container">
-
         <table>
-
           <thead>
             <tr>
               <th scope="col">Nome</th>
@@ -180,16 +134,99 @@
 
           <tbody id="tabela-usuarios">
             <tr>
-              <td colspan="4">
-                Carregando...
-              </td>
+              <td colspan="4">Carregando...</td>
             </tr>
           </tbody>
-
         </table>
-
       </div>
+    </section>
 
+    <section class="operations-section">
+      <h3>Cadastrar novo usuário</h3>
+
+      <p>
+        Cadastre novos atendentes ou administradores
+        para acessar o sistema de estacionamento.
+      </p>
+
+      <form id="formulario-cadastrar-usuario">
+
+        <div>
+          <label for="cadastro-nome">Nome completo</label>
+          <input
+            id="cadastro-nome"
+            name="nome"
+            type="text"
+            autocomplete="name"
+            maxlength="120"
+            placeholder="Nome do usuário"
+            required>
+        </div>
+
+        <div>
+          <label for="cadastro-email">E-mail</label>
+          <input
+            id="cadastro-email"
+            name="email"
+            type="email"
+            autocomplete="off"
+            placeholder="usuario@exemplo.com"
+            required>
+        </div>
+
+        <div>
+          <label for="cadastro-senha">Senha</label>
+          <input
+            id="cadastro-senha"
+            name="senha"
+            type="password"
+            autocomplete="new-password"
+            minlength="8"
+            placeholder="Mínimo de 8 caracteres"
+            required>
+        </div>
+
+        <div>
+          <label for="cadastro-confirmar-senha">
+            Confirmar senha
+          </label>
+          <input
+            id="cadastro-confirmar-senha"
+            name="confirmarSenha"
+            type="password"
+            autocomplete="new-password"
+            minlength="8"
+            placeholder="Repita a senha"
+            required>
+        </div>
+
+        <div>
+          <label for="cadastro-papel">Perfil de acesso</label>
+          <select
+            id="cadastro-papel"
+            name="papel"
+            required>
+            <option value="atendente" selected>
+              Atendente
+            </option>
+            <option value="admin">
+              Administrador
+            </option>
+          </select>
+        </div>
+
+        <p
+          id="mensagem-cadastro-usuario"
+          role="status"
+          aria-live="polite"></p>
+
+        <button
+          id="botao-cadastrar-usuario"
+          type="submit">
+          Cadastrar usuário
+        </button>
+
+      </form>
     </section>
 
   </main>
