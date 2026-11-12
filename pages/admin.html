@@ -1,14 +1,82 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Administração | Estacionamento ULBRA Torres</title>
-    <link rel="stylesheet" href="../css/styles.css">
-  </head>
-  <body>
-    <main>
-      <h1>Administração</h1>
-    </main>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+  <title>Administração | Estacionamento ULBRA Torres</title>
+
+  <link rel="stylesheet" href="../css/styles.css">
+
+  <script type="module" src="../js/pages/admin.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="marca-sistema">
+      <img
+        src="../logoulbra.png"
+        alt="Logo ULBRA"
+        class="logo-ulbra"
+      >
+
+      <div class="marca-texto">
+        <h1>Estacionamento ULBRA Torres</h1>
+        <p>Sistema de Controle de Estacionamento</p>
+      </div>
+    </div>
+
+    <p id="identificacao-perfil"></p>
+
+    <button id="botao-sair" type="button">
+      Sair
+    </button>
+  </header>
+
+  <main id="conteudo-admin" hidden>
+
+    <nav aria-label="Navegação principal">
+      <a href="painel.html">Painel</a>
+      <a href="historico.html">Histórico</a>
+      <a href="admin.html" data-admin-only hidden>
+        Administração
+      </a>
+    </nav>
+
+    <h3>Administração do estacionamento</h3>
+
+    <p>
+      Área de gerenciamento do sistema.
+      Acesso exclusivo para administradores.
+    </p>
+
+    <section>
+      <h3>Gerenciamento de vagas</h3>
+
+      <p>
+        Consulte e gerencie as vagas cadastradas
+        no estacionamento.
+      </p>
+
+      <div id="lista-vagas">
+        <p>Funcionalidade em preparação.</p>
+      </div>
+    </section>
+
+    <section>
+      <h3>Gerenciamento de usuários</h3>
+
+      <p>
+        Consulte os atendentes e administradores
+        cadastrados no sistema.
+      </p>
+
+      <div id="lista-usuarios">
+        <p>Funcionalidade em preparação.</p>
+      </div>
+    </section>
+
+  </main>
+</body>
 </html>
