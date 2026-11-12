@@ -1,22 +1,13 @@
 <!doctype html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
+  <title>Administração | Estacionamento ULBRA Torres</title>
 
-  <title>
-    Administração | Estacionamento ULBRA Torres
-  </title>
-
-  <link
-    rel="stylesheet"
-    href="../css/styles.css"
-  >
+  <link rel="stylesheet" href="../css/styles.css">
 
   <script
     type="module"
@@ -24,73 +15,41 @@
   </script>
 </head>
 
-<body class="panel-page">
+<body>
 
-  <!-- CABEÇALHO -->
-  <header class="panel-header">
-
+  <!-- Cabeçalho do sistema -->
+  <header>
     <div class="marca-sistema">
-
       <img
         src="../logoulbra.png"
-        alt="Logo ULBRA Torres"
-        class="logo-ulbra"
-      >
+        alt="Logo ULBRA"
+        class="logo-ulbra">
 
       <div class="marca-texto">
         <h1>Estacionamento ULBRA Torres</h1>
         <p>Sistema de Controle de Estacionamento</p>
       </div>
-
     </div>
 
-    <div class="panel-user">
+    <p id="identificacao-perfil"></p>
 
-      <span id="identificacao-perfil"></span>
-
-      <button
-        id="botao-sair"
-        class="logout-button"
-        type="button">
-        Sair
-      </button>
-
-    </div>
-
+    <button id="botao-sair" type="button">
+      Sair
+    </button>
   </header>
 
-  <!-- CONTEÚDO PRINCIPAL -->
-  <main
-    id="conteudo-admin"
-    class="panel-content"
-    hidden
-  >
+  <!-- Conteúdo protegido -->
+  <main id="conteudo-admin" hidden>
 
-    <!-- NAVEGAÇÃO -->
-    <nav
-      class="panel-nav"
-      aria-label="Navegação principal"
-    >
-
-      <a href="painel.html">
-        Painel
-      </a>
-
-      <a href="historico.html">
-        Histórico
-      </a>
-
-      <a
-        href="admin.html"
-        data-admin-only
-        hidden
-        aria-current="page">
+    <!-- Navegação -->
+    <nav aria-label="Navegação principal">
+      <a href="painel.html">Painel</a>
+      <a href="historico.html">Histórico</a>
+      <a href="admin.html" aria-current="page">
         Administração
       </a>
-
     </nav>
 
-    <!-- TÍTULO -->
     <h3>Administração do estacionamento</h3>
 
     <p>
@@ -98,54 +57,61 @@
       Acesso exclusivo para administradores.
     </p>
 
-    <!-- GERENCIAMENTO DE VAGAS -->
-    <section
-      class="operations-section"
-      aria-labelledby="titulo-vagas"
-    >
-
-      <h3 id="titulo-vagas">
-        Gerenciamento de vagas
-      </h3>
+    <!-- Gerenciamento de vagas -->
+    <section>
+      <h3>Gerenciamento de vagas</h3>
 
       <p>
         Consulte as vagas cadastradas no estacionamento,
         seus setores, tipos e situações.
       </p>
 
-      <div id="lista-vagas">
+      <p id="mensagem-vagas"
+         role="status"
+         aria-live="polite">
+        Carregando vagas...
+      </p>
 
-        <p>
-          Funcionalidade em preparação.
-        </p>
+      <button
+        id="botao-atualizar-vagas"
+        type="button">
+        Atualizar vagas
+      </button>
 
+      <div style="overflow-x:auto">
+        <table width="100%">
+          <thead>
+            <tr>
+              <th>Vaga</th>
+              <th>Setor</th>
+              <th>Tipo</th>
+              <th>Situação</th>
+            </tr>
+          </thead>
+
+          <tbody id="tabela-vagas">
+            <tr>
+              <td colspan="4">
+                Carregando...
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
     </section>
 
-    <!-- GERENCIAMENTO DE USUÁRIOS -->
-    <section
-      class="operations-section"
-      aria-labelledby="titulo-usuarios"
-    >
-
-      <h3 id="titulo-usuarios">
-        Gerenciamento de usuários
-      </h3>
+    <!-- Gerenciamento de usuários -->
+    <section>
+      <h3>Gerenciamento de usuários</h3>
 
       <p>
         Consulte os usuários cadastrados,
         seus níveis de acesso e suas situações.
       </p>
 
-      <div id="lista-usuarios">
-
-        <p>
-          Funcionalidade em preparação.
-        </p>
-
-      </div>
-
+      <p>
+        Funcionalidade em preparação.
+      </p>
     </section>
 
   </main>
