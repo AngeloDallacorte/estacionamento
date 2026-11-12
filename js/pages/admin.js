@@ -3,7 +3,8 @@ import { protegerRota, sair } from '../auth.js';
 
 import {
   listarPerfis,
-  alterarSituacaoUsuario
+  alterarSituacaoUsuario,
+  alterarPerfilUsuario
 } from '../services/perfis.js';
 
 const conteudo = document.getElementById('conteudo-admin');
@@ -12,18 +13,15 @@ const botaoSair = document.getElementById('botao-sair');
 
 const tabelaVagas = document.getElementById('tabela-vagas');
 const mensagemVagas = document.getElementById('mensagem-vagas');
-const botaoAtualizarVagas =
-  document.getElementById('botao-atualizar-vagas');
+const botaoAtualizarVagas = document.getElementById('botao-atualizar-vagas');
 
 const tabelaUsuarios = document.getElementById('tabela-usuarios');
 const mensagemUsuarios = document.getElementById('mensagem-usuarios');
-const botaoAtualizarUsuarios =
-  document.getElementById('botao-atualizar-usuarios');
+const botaoAtualizarUsuarios = document.getElementById('botao-atualizar-usuarios');
 
 let usuarioAtualId = null;
 let alteracaoEmAndamento = false;
 
-// Cria células de texto com segurança.
 function adicionarCelula(linha, valor) {
   const celula = document.createElement('td');
   celula.textContent = String(valor ?? '-');
@@ -31,7 +29,6 @@ function adicionarCelula(linha, valor) {
   return celula;
 }
 
-// Carrega as vagas.
 async function carregarVagas() {
   mensagemVagas.textContent = 'Carregando vagas...';
   tabelaVagas.replaceChildren();
@@ -52,10 +49,7 @@ async function carregarVagas() {
       adicionarCelula(linha, vaga.numero);
       adicionarCelula(linha, vaga.setor ?? '-');
       adicionarCelula(linha, vaga.tipo ?? '-');
-      adicionarCelula(
-        linha,
-        vaga.ocupada ? 'Ocupada' : 'Livre'
-      );
+      adicionarCelula(linha, vaga.ocupada ? 'Ocupada' : 'Livre');
 
       tabelaVagas.appendChild(linha);
     }
@@ -66,12 +60,19 @@ async function carregarVagas() {
   } catch (error) {
     mensagemVagas.textContent =
       'Não foi possível consultar as vagas.';
-
-    console.error('Erro ao carregar vagas:', error);
+    console.error(error);
   }
 }
 
-// Carrega os usuários e cria os botões.
+function criarBotao(texto, acao) {
+  const botao = document.createElement('button');
+  botao.type = 'button';
+  botao.textContent = texto;
+  botao.style.marginRight = '8px';
+  botao.addEventListener('click', acao);
+  return botao;
+}
+
 async function carregarUsuarios() {
   if (alteracaoEmAndamento) return;
 
@@ -85,39 +86,35 @@ async function carregarUsuarios() {
       const linha = document.createElement('tr');
 
       adicionarCelula(linha, usuario.nome);
-
       adicionarCelula(
         linha,
-        usuario.papel === 'admin'
-          ? 'Administrador'
-          : 'Atendente'
+        usuario.papel === 'admin' ? 'Administrador' : 'Atendente'
       );
-
       adicionarCelula(
         linha,
         usuario.ativo ? 'Ativo' : 'Inativo'
       );
 
-      const celulaAcao = document.createElement('td');
+      const celulaAcoes = document.createElement('td');
 
       if (usuario.id === usuarioAtualId) {
-        celulaAcao.textContent = 'Sua conta';
+        celulaAcoes.textContent = 'Sua conta';
       } else {
-        const botao = document.createElement('button');
+        const botaoSituacao = criarBotao(
+          usuario.ativo ? 'Desativar' : 'Ativar',
+          () => alterarSituacao(usuario)
+        );
 
-        botao.type = 'button';
-        botao.textContent = usuario.ativo
-          ? 'Desativar'
-          : 'Ativar';
+        const botaoPerfil = criarBotao(
+          usuario.papel === 'admin' ? 'Rebaixar' : 'Promover',
+          () => alterarPerfil(usuario)
+        );
 
-        botao.addEventListener('click', () => {
-          alterarUsuario(usuario);
-        });
-
-        celulaAcao.appendChild(botao);
+        celulaAcoes.appendChild(botaoSituacao);
+        celulaAcoes.appendChild(botaoPerfil);
       }
 
-      linha.appendChild(celulaAcao);
+      linha.appendChild(celulaAcoes);
       tabelaUsuarios.appendChild(linha);
     }
 
@@ -127,67 +124,71 @@ async function carregarUsuarios() {
   } catch (error) {
     mensagemUsuarios.textContent =
       'Não foi possível consultar os usuários.';
-
-    console.error('Erro ao carregar usuários:', error);
+    console.error(error);
   }
 }
 
-// Altera a situação de um usuário.
-async function alterarUsuario(usuario) {
+function bloquearBotoes(bloquear) {
+  botaoAtualizarUsuarios.disabled = bloquear;
+
+  for (const botao of tabelaUsuarios.querySelectorAll('button')) {
+    botao.disabled = bloquear;
+  }
+}
+
+async function executarAlteracao(operacao) {
   if (alteracaoEmAndamento) return;
 
-  if (usuario.id === usuarioAtualId) {
-    alert('Você não pode desativar sua própria conta.');
-    return;
-  }
-
-  const novaSituacao = !usuario.ativo;
-  const acao = novaSituacao ? 'ativar' : 'desativar';
-
-  const confirmado = window.confirm(
-    `Deseja realmente ${acao} o usuário "${usuario.nome}"?`
-  );
-
-  if (!confirmado) return;
-
   alteracaoEmAndamento = true;
-  botaoAtualizarUsuarios.disabled = true;
-
-  const botoes = tabelaUsuarios.querySelectorAll('button');
-
-  for (const botao of botoes) {
-    botao.disabled = true;
-  }
-
-  mensagemUsuarios.textContent =
-    `Aguarde, tentando ${acao} o usuário...`;
+  bloquearBotoes(true);
+  mensagemUsuarios.textContent = 'Salvando alteração...';
 
   try {
-    await alterarSituacaoUsuario(
-      usuario.id,
-      novaSituacao
-    );
-
-    mensagemUsuarios.textContent =
-      'Situação alterada com sucesso.';
-
-    // Atualiza a tabela com os dados do banco.
+    await operacao();
+    mensagemUsuarios.textContent = 'Alteração realizada com sucesso.';
   } catch (error) {
     alert(error.message);
-
-    console.error(
-      'Erro ao alterar situação do usuário:',
-      error
-    );
+    console.error(error);
   } finally {
     alteracaoEmAndamento = false;
-    botaoAtualizarUsuarios.disabled = false;
-
+    bloquearBotoes(false);
     await carregarUsuarios();
   }
 }
 
-// Inicialização da administração.
+async function alterarSituacao(usuario) {
+  if (alteracaoEmAndamento || usuario.id === usuarioAtualId) return;
+
+  const novaSituacao = !usuario.ativo;
+  const acao = novaSituacao ? 'ativar' : 'desativar';
+
+  if (!window.confirm(
+    `Deseja realmente ${acao} o usuário "${usuario.nome}"?`
+  )) return;
+
+  await executarAlteracao(() =>
+    alterarSituacaoUsuario(usuario.id, novaSituacao)
+  );
+}
+
+async function alterarPerfil(usuario) {
+  if (alteracaoEmAndamento || usuario.id === usuarioAtualId) return;
+
+  const novoPapel =
+    usuario.papel === 'admin' ? 'atendente' : 'admin';
+
+  const acao =
+    novoPapel === 'admin' ? 'promover' : 'rebaixar';
+
+  if (!window.confirm(
+    `Deseja realmente ${acao} o usuário "${usuario.nome}"?`
+  )) return;
+
+  await executarAlteracao(() =>
+    alterarPerfilUsuario(usuario.id, novoPapel)
+  );
+}
+
 async function iniciar() {
   try {
     const perfil = await protegerRota();
@@ -218,16 +219,11 @@ async function iniciar() {
     ]);
 
   } catch (error) {
-    console.error(
-      'Erro ao iniciar administração:',
-      error
-    );
-
+    console.error(error);
     window.location.replace('painel.html');
   }
 }
 
-// Botão sair.
 botaoSair.addEventListener('click', async () => {
   try {
     await sair();
@@ -236,15 +232,7 @@ botaoSair.addEventListener('click', async () => {
   }
 });
 
-// Atualização das tabelas.
-botaoAtualizarVagas.addEventListener(
-  'click',
-  carregarVagas
-);
-
-botaoAtualizarUsuarios.addEventListener(
-  'click',
-  carregarUsuarios
-);
+botaoAtualizarVagas.addEventListener('click', carregarVagas);
+botaoAtualizarUsuarios.addEventListener('click', carregarUsuarios);
 
 iniciar();
