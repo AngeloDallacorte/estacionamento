@@ -2,20 +2,27 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
+
   <meta name="viewport"
         content="width=device-width, initial-scale=1">
 
   <title>Administração | Estacionamento ULBRA Torres</title>
 
   <link rel="stylesheet" href="../css/styles.css">
-  <script type="module" src="../js/pages/admin.js"></script>
+
+  <script
+    type="module"
+    src="../js/pages/admin.js">
+  </script>
 </head>
 
 <body class="panel-page">
 
+  <!-- Cabeçalho do sistema -->
   <header class="panel-header">
 
     <div class="marca-sistema">
+
       <img
         src="../logoulbra.png"
         alt="Logo ULBRA"
@@ -25,9 +32,11 @@
         <h1>Estacionamento ULBRA Torres</h1>
         <p>Sistema de Controle de Estacionamento</p>
       </div>
+
     </div>
 
     <div class="panel-user">
+
       <p id="identificacao-perfil"></p>
 
       <button
@@ -36,18 +45,36 @@
         type="button">
         Sair
       </button>
+
     </div>
 
   </header>
 
-  <main id="conteudo-admin" class="panel-content" hidden>
+  <!-- Conteúdo protegido: somente administradores -->
+  <main
+    id="conteudo-admin"
+    class="panel-content"
+    hidden>
 
-    <nav class="panel-nav" aria-label="Navegação principal">
-      <a href="painel.html">Painel</a>
-      <a href="historico.html">Histórico</a>
-      <a href="admin.html" aria-current="page">
+    <!-- Navegação -->
+    <nav
+      class="panel-nav"
+      aria-label="Navegação principal">
+
+      <a href="painel.html">
+        Painel
+      </a>
+
+      <a href="historico.html">
+        Histórico
+      </a>
+
+      <a
+        href="admin.html"
+        aria-current="page">
         Administração
       </a>
+
     </nav>
 
     <h3>Administração do estacionamento</h3>
@@ -57,6 +84,7 @@
       Acesso exclusivo para administradores.
     </p>
 
+    <!-- GERENCIAMENTO DE VAGAS -->
     <section class="operations-section">
 
       <h3>Gerenciamento de vagas</h3>
@@ -66,9 +94,10 @@
         seus setores, tipos e situações.
       </p>
 
-      <p id="mensagem-vagas"
-         role="status"
-         aria-live="polite">
+      <p
+        id="mensagem-vagas"
+        role="status"
+        aria-live="polite">
         Carregando vagas...
       </p>
 
@@ -79,26 +108,32 @@
       </button>
 
       <div class="table-container">
+
         <table>
           <thead>
             <tr>
-              <th>Vaga</th>
-              <th>Setor</th>
-              <th>Tipo</th>
-              <th>Situação</th>
+              <th scope="col">Vaga</th>
+              <th scope="col">Setor</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Situação</th>
             </tr>
           </thead>
 
           <tbody id="tabela-vagas">
             <tr>
-              <td colspan="4">Carregando...</td>
+              <td colspan="4">
+                Carregando...
+              </td>
             </tr>
           </tbody>
+
         </table>
+
       </div>
 
     </section>
 
+    <!-- GERENCIAMENTO DE USUÁRIOS -->
     <section class="operations-section">
 
       <h3>Gerenciamento de usuários</h3>
@@ -108,7 +143,41 @@
         seus níveis de acesso e suas situações.
       </p>
 
-      <p>Funcionalidade em preparação.</p>
+      <p
+        id="mensagem-usuarios"
+        role="status"
+        aria-live="polite">
+        Carregando usuários...
+      </p>
+
+      <button
+        id="botao-atualizar-usuarios"
+        type="button">
+        Atualizar usuários
+      </button>
+
+      <div class="table-container">
+
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Perfil</th>
+              <th scope="col">Situação</th>
+            </tr>
+          </thead>
+
+          <tbody id="tabela-usuarios">
+            <tr>
+              <td colspan="3">
+                Carregando...
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </div>
 
     </section>
 
