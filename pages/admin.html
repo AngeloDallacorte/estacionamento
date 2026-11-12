@@ -1,23 +1,39 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
 
-  <title>Administração | Estacionamento ULBRA Torres</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
 
-  <link rel="stylesheet" href="../css/styles.css">
+  <title>
+    Administração | Estacionamento ULBRA Torres
+  </title>
 
-  <script type="module" src="../js/pages/admin.js"></script>
+  <link
+    rel="stylesheet"
+    href="../css/styles.css"
+  >
+
+  <script
+    type="module"
+    src="../js/pages/admin.js">
+  </script>
 </head>
 
-<body>
-  <header>
+<body class="panel-page">
+
+  <!-- CABEÇALHO -->
+  <header class="panel-header">
+
     <div class="marca-sistema">
+
       <img
         src="../logoulbra.png"
-        alt="Logo ULBRA"
+        alt="Logo ULBRA Torres"
         class="logo-ulbra"
       >
 
@@ -25,25 +41,56 @@
         <h1>Estacionamento ULBRA Torres</h1>
         <p>Sistema de Controle de Estacionamento</p>
       </div>
+
     </div>
 
-    <p id="identificacao-perfil"></p>
+    <div class="panel-user">
 
-    <button id="botao-sair" type="button">
-      Sair
-    </button>
+      <span id="identificacao-perfil"></span>
+
+      <button
+        id="botao-sair"
+        class="logout-button"
+        type="button">
+        Sair
+      </button>
+
+    </div>
+
   </header>
 
-  <main id="conteudo-admin" hidden>
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main
+    id="conteudo-admin"
+    class="panel-content"
+    hidden
+  >
 
-    <nav aria-label="Navegação principal">
-      <a href="painel.html">Painel</a>
-      <a href="historico.html">Histórico</a>
-      <a href="admin.html" data-admin-only hidden>
+    <!-- NAVEGAÇÃO -->
+    <nav
+      class="panel-nav"
+      aria-label="Navegação principal"
+    >
+
+      <a href="painel.html">
+        Painel
+      </a>
+
+      <a href="historico.html">
+        Histórico
+      </a>
+
+      <a
+        href="admin.html"
+        data-admin-only
+        hidden
+        aria-current="page">
         Administração
       </a>
+
     </nav>
 
+    <!-- TÍTULO -->
     <h3>Administração do estacionamento</h3>
 
     <p>
@@ -51,32 +98,57 @@
       Acesso exclusivo para administradores.
     </p>
 
-    <section>
-      <h3>Gerenciamento de vagas</h3>
+    <!-- GERENCIAMENTO DE VAGAS -->
+    <section
+      class="operations-section"
+      aria-labelledby="titulo-vagas"
+    >
+
+      <h3 id="titulo-vagas">
+        Gerenciamento de vagas
+      </h3>
 
       <p>
-        Consulte e gerencie as vagas cadastradas
-        no estacionamento.
+        Consulte as vagas cadastradas no estacionamento,
+        seus setores, tipos e situações.
       </p>
 
       <div id="lista-vagas">
-        <p>Funcionalidade em preparação.</p>
+
+        <p>
+          Funcionalidade em preparação.
+        </p>
+
       </div>
+
     </section>
 
-    <section>
-      <h3>Gerenciamento de usuários</h3>
+    <!-- GERENCIAMENTO DE USUÁRIOS -->
+    <section
+      class="operations-section"
+      aria-labelledby="titulo-usuarios"
+    >
+
+      <h3 id="titulo-usuarios">
+        Gerenciamento de usuários
+      </h3>
 
       <p>
-        Consulte os atendentes e administradores
-        cadastrados no sistema.
+        Consulte os usuários cadastrados,
+        seus níveis de acesso e suas situações.
       </p>
 
       <div id="lista-usuarios">
-        <p>Funcionalidade em preparação.</p>
+
+        <p>
+          Funcionalidade em preparação.
+        </p>
+
       </div>
+
     </section>
 
   </main>
+
 </body>
 </html>
