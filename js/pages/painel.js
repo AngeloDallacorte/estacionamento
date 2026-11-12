@@ -1,4 +1,3 @@
-
 import { protegerRota, sair } from '../auth.js';
 import {
   registrarEntrada,
@@ -56,6 +55,32 @@ function normalizarPlaca(placa) {
   return placa.trim().toUpperCase().replace(/[\s-]/g, '');
 }
 
+// Valida placas brasileiras antigas e Mercosul.
+// Exemplos aceitos: ABC1234 e ABC1D23.
+function validarPlaca(placa) {
+  if (placa.length !== 7) {
+    throw new Error(
+      'A placa deve conter exatamente 7 caracteres. ' +
+      'Exemplo: ABC1234 ou ABC1D23.'
+    );
+  }
+
+  const formatoAntigo = /^[A-Z]{3}[0-9]{4}$/;
+  const formatoMercosul = /^[A-Z]{3}[0-9][A-Z][0-9]{2}$/;
+
+  if (
+    !formatoAntigo.test(placa) &&
+    !formatoMercosul.test(placa)
+  ) {
+    throw new Error(
+      'Formato de placa inválido. ' +
+      'Utilize ABC1234 ou ABC1D23.'
+    );
+  }
+
+  return placa;
+}
+
 async function atualizarPainel() {
   const [vagas, veiculos] = await Promise.all([
     listarVagas(),
@@ -91,7 +116,8 @@ async function atualizarPainel() {
   for (const vaga of livres) {
     const opcao = document.createElement('option');
     opcao.value = vaga.numero;
-    opcao.textContent = `${vaga.numero} - ${vaga.setor ?? 'Sem setor'}`;
+    opcao.textContent =
+      `${vaga.numero} - ${vaga.setor ?? 'Sem setor'}`;
     campoVaga.appendChild(opcao);
   }
 
@@ -131,8 +157,12 @@ async function atualizarPainel() {
     botao.addEventListener('click', () => {
       document.querySelector('#saida-placa').value =
         veiculo.placa_atual;
+
       document.querySelector('#saida-placa').focus();
-      informar('Placa preenchida. Confirme a saída no formulário.');
+
+      informar(
+        'Placa preenchida. Confirme a saída no formulário.'
+      );
     });
 
     celulaAcao.appendChild(botao);
@@ -141,18 +171,24 @@ async function atualizarPainel() {
   }
 }
 
+// REGISTRAR ENTRADA
 formEntrada.addEventListener('submit', async evento => {
   evento.preventDefault();
 
   const botao = document.querySelector('#botao-entrada');
   botao.disabled = true;
-  informar('Registrando entrada...');
 
   try {
-    const resultado = await registrarEntrada({
-      placa: normalizarPlaca(
+    const placa = validarPlaca(
+      normalizarPlaca(
         document.querySelector('#entrada-placa').value
-      ),
+      )
+    );
+
+    informar('Registrando entrada...');
+
+    const resultado = await registrarEntrada({
+      placa,
       vagaNumero: campoVaga.value,
       categoria:
         document.querySelector('#entrada-categoria').value || null,
@@ -166,8 +202,10 @@ formEntrada.addEventListener('submit', async evento => {
 
     try {
       await atualizarPainel();
+
       informar(
-        `Entrada registrada: ${resultado.placa}, vaga ${resultado.vaga_numero}.`
+        `Entrada registrada: ${resultado.placa}, ` +
+        `vaga ${resultado.vaga_numero}.`
       );
     } catch (erroAtualizacao) {
       informar(
@@ -182,17 +220,23 @@ formEntrada.addEventListener('submit', async evento => {
   }
 });
 
+// REGISTRAR SAÍDA
 formSaida.addEventListener('submit', async evento => {
   evento.preventDefault();
 
   const botao = document.querySelector('#botao-saida');
   botao.disabled = true;
-  informar('Registrando saída...');
 
   try {
-    const resultado = await registrarSaida(
-      normalizarPlaca(document.querySelector('#saida-placa').value)
+    const placa = validarPlaca(
+      normalizarPlaca(
+        document.querySelector('#saida-placa').value
+      )
     );
+
+    informar('Registrando saída...');
+
+    const resultado = await registrarSaida(placa);
 
     formSaida.reset();
 
@@ -212,6 +256,7 @@ formSaida.addEventListener('submit', async evento => {
   }
 });
 
+// ATUALIZAR PAINEL
 botaoAtualizar.addEventListener('click', async () => {
   botaoAtualizar.disabled = true;
   informar('Atualizando informações...');
@@ -226,6 +271,7 @@ botaoAtualizar.addEventListener('click', async () => {
   }
 });
 
+// SAIR DO SISTEMA
 botaoSair.addEventListener('click', async () => {
   botaoSair.disabled = true;
 
@@ -237,16 +283,20 @@ botaoSair.addEventListener('click', async () => {
   }
 });
 
+// INICIALIZAÇÃO DO PAINEL
 try {
   const perfil = await protegerRota();
 
   if (perfil) {
-    identificacao.textContent = `${perfil.nome} · ${perfil.papel}`;
+    identificacao.textContent =
+      `${perfil.nome} · ${perfil.papel}`;
 
     if (perfil.papel === 'admin') {
-      document.querySelectorAll('[data-admin-only]').forEach(link => {
-        link.hidden = false;
-      });
+      document
+        .querySelectorAll('[data-admin-only]')
+        .forEach(link => {
+          link.hidden = false;
+        });
     }
 
     conteudo.hidden = false;
