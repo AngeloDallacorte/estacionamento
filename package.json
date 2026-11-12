@@ -5,5 +5,8 @@
   "scripts": {
     "dev": "npx --yes serve .",
     "build": "node scripts/build.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.0"
   }
 }
