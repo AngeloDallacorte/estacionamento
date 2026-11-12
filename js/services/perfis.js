@@ -1,6 +1,5 @@
 import { supabase } from '../supabaseClient.js';
 
-// Busca o perfil do usuário autenticado.
 export async function buscarPerfilPorId(usuarioId) {
   const { data, error } = await supabase
     .from('perfis')
@@ -17,7 +16,6 @@ export async function buscarPerfilPorId(usuarioId) {
   return data;
 }
 
-// Lista os usuários cadastrados.
 export async function listarPerfis() {
   const { data, error } = await supabase
     .from('perfis')
@@ -33,17 +31,16 @@ export async function listarPerfis() {
   return data ?? [];
 }
 
-// Ativa ou desativa um usuário.
-// A permissão de alteração é validada pelo Supabase (RLS).
 export async function alterarSituacaoUsuario(usuarioId, ativo) {
   const { data: autenticacao, error: erroAutenticacao } =
     await supabase.auth.getUser();
 
   if (erroAutenticacao || !autenticacao.user) {
-    throw new Error('Sessão inválida. Faça login novamente.');
+    throw new Error(
+      'Sessão inválida. Faça login novamente.'
+    );
   }
 
-  // Impede que o administrador altere a própria situação.
   if (autenticacao.user.id === usuarioId) {
     throw new Error(
       'Você não pode alterar a situação da sua própria conta.'
@@ -60,6 +57,44 @@ export async function alterarSituacaoUsuario(usuarioId, ativo) {
   if (error) {
     throw new Error(
       'Não foi possível alterar a situação do usuário.'
+    );
+  }
+
+  return data;
+}
+
+export async function alterarPerfilUsuario(usuarioId, novoPapel) {
+  if (!['admin', 'atendente'].includes(novoPapel)) {
+    throw new Error(
+      'O perfil informado é inválido.'
+    );
+  }
+
+  const { data: autenticacao, error: erroAutenticacao } =
+    await supabase.auth.getUser();
+
+  if (erroAutenticacao || !autenticacao.user) {
+    throw new Error(
+      'Sessão inválida. Faça login novamente.'
+    );
+  }
+
+  if (autenticacao.user.id === usuarioId) {
+    throw new Error(
+      'Você não pode alterar o perfil da sua própria conta.'
+    );
+  }
+
+  const { data, error } = await supabase
+    .from('perfis')
+    .update({ papel: novoPapel })
+    .eq('id', usuarioId)
+    .select('id, nome, papel, ativo')
+    .single();
+
+  if (error) {
+    throw new Error(
+      'Não foi possível alterar o perfil do usuário.'
     );
   }
 
