@@ -1,4 +1,3 @@
-
 import { supabase } from '../supabaseClient.js';
 import { protegerRota, sair } from '../auth.js';
 
