@@ -8,17 +8,13 @@
   <title>Administração | Estacionamento ULBRA Torres</title>
 
   <link rel="stylesheet" href="../css/styles.css">
-
-  <script
-    type="module"
-    src="../js/pages/admin.js">
-  </script>
+  <script type="module" src="../js/pages/admin.js"></script>
 </head>
 
-<body>
+<body class="panel-page">
 
-  <!-- Cabeçalho do sistema -->
-  <header>
+  <header class="panel-header">
+
     <div class="marca-sistema">
       <img
         src="../logoulbra.png"
@@ -31,18 +27,22 @@
       </div>
     </div>
 
-    <p id="identificacao-perfil"></p>
+    <div class="panel-user">
+      <p id="identificacao-perfil"></p>
 
-    <button id="botao-sair" type="button">
-      Sair
-    </button>
+      <button
+        id="botao-sair"
+        class="logout-button"
+        type="button">
+        Sair
+      </button>
+    </div>
+
   </header>
 
-  <!-- Conteúdo protegido -->
-  <main id="conteudo-admin" hidden>
+  <main id="conteudo-admin" class="panel-content" hidden>
 
-    <!-- Navegação -->
-    <nav aria-label="Navegação principal">
+    <nav class="panel-nav" aria-label="Navegação principal">
       <a href="painel.html">Painel</a>
       <a href="historico.html">Histórico</a>
       <a href="admin.html" aria-current="page">
@@ -57,8 +57,8 @@
       Acesso exclusivo para administradores.
     </p>
 
-    <!-- Gerenciamento de vagas -->
-    <section>
+    <section class="operations-section">
+
       <h3>Gerenciamento de vagas</h3>
 
       <p>
@@ -78,8 +78,8 @@
         Atualizar vagas
       </button>
 
-      <div style="overflow-x:auto">
-        <table width="100%">
+      <div class="table-container">
+        <table>
           <thead>
             <tr>
               <th>Vaga</th>
@@ -91,17 +91,16 @@
 
           <tbody id="tabela-vagas">
             <tr>
-              <td colspan="4">
-                Carregando...
-              </td>
+              <td colspan="4">Carregando...</td>
             </tr>
           </tbody>
         </table>
       </div>
+
     </section>
 
-    <!-- Gerenciamento de usuários -->
-    <section>
+    <section class="operations-section">
+
       <h3>Gerenciamento de usuários</h3>
 
       <p>
@@ -109,9 +108,8 @@
         seus níveis de acesso e suas situações.
       </p>
 
-      <p>
-        Funcionalidade em preparação.
-      </p>
+      <p>Funcionalidade em preparação.</p>
+
     </section>
 
   </main>
