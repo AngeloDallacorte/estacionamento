@@ -42,10 +42,6 @@ textarea {
   display: none !important;
 }
 
-/* =========================================
-   LOGIN
-========================================= */
-
 .login-page {
   display: grid;
   align-items: center;
@@ -212,10 +208,6 @@ textarea {
   line-height: 1.4;
 }
 
-/* =========================================
-   ESTRUTURA DAS PÁGINAS
-========================================= */
-
 .panel-page {
   color: #18251f;
   background: #edf1ed;
@@ -277,9 +269,6 @@ textarea {
   color: #a4332d;
 }
 
-/* =========================================
-   LOGOTIPO E IDENTIDADE VISUAL
-========================================= */
 
 .marca-sistema {
   display: flex;
@@ -321,9 +310,6 @@ textarea {
   line-height: 1.4;
 }
 
-/* =========================================
-   HISTÓRICO
-========================================= */
 
 #conteudo-historico {
   width: min(100% - 48px, 1120px);
@@ -399,10 +385,6 @@ textarea {
   cursor: wait;
 }
 
-/* =========================================
-   PAINEL E SEÇÕES
-========================================= */
-
 .panel-content > h3 {
   margin: 28px 0 18px;
   color: #1d4b3f;
@@ -425,10 +407,6 @@ textarea {
   font-size: 1.1rem;
   font-weight: 700;
 }
-
-/* =========================================
-   TABELAS
-========================================= */
 
 .table-container {
   width: 100%;
@@ -480,10 +458,6 @@ textarea {
   font-size: 1rem;
 }
 
-/* =========================================
-   FORMULÁRIOS GERAIS
-========================================= */
-
 .panel-content input,
 .panel-content select,
 .panel-content textarea {
@@ -513,9 +487,6 @@ textarea {
   cursor: wait;
 }
 
-/* =========================================
-   ENTRADA E SAÍDA - CAMPOS COMPACTOS
-========================================= */
 
 #form-entrada,
 #form-saida {
@@ -563,9 +534,6 @@ textarea {
   min-height: 40px;
 }
 
-/* =========================================
-   RESPONSIVIDADE
-========================================= */
 
 @media (max-width: 720px) {
   .login-page {
